@@ -1,7 +1,7 @@
 // Function to connect the Stacks wallet
 async function connectWallet() {
     try {
-        const userData = await Stacks.connectStacksWallet();
+        const userData = await window.ledger.getUserData();
         return userData;
     } catch (error) {
         console.error('Error connecting wallet:', error);
@@ -12,7 +12,8 @@ async function connectWallet() {
 // Function to retrieve wallet data
 async function getWalletData() {
     try {
-        const balances = await Stacks.stacksWebApi.getAccountBalance();
+        // Your code to retrieve wallet data using Leather
+        // Example: const balances = await getBalancesFromWallet();
         return balances;
     } catch (error) {
         console.error('Error retrieving wallet data:', error);
