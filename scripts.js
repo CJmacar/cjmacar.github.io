@@ -1,10 +1,7 @@
-// Initialize Leather
-const { connectStacksWallet, stacksWebApi } = require('@blockstack/stacks-web-api');
-
 // Function to connect the Stacks wallet
 async function connectWallet() {
     try {
-        const userData = await connectStacksWallet();
+        const userData = await window.Stacks.connectStacksWallet();
         return userData;
     } catch (error) {
         console.error('Error connecting wallet:', error);
@@ -15,7 +12,7 @@ async function connectWallet() {
 // Function to retrieve wallet data
 async function getWalletData() {
     try {
-        const balances = await stacksWebApi.getAccountBalance();
+        const balances = await window.Stacks.stacksWebApi.getAccountBalance();
         return balances;
     } catch (error) {
         console.error('Error retrieving wallet data:', error);
