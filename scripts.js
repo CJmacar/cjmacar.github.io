@@ -1,7 +1,7 @@
 // Function to connect the Stacks wallet
 async function connectWallet() {
     try {
-        const userData = await window.Stacks.connectStacksWallet();
+        const userData = await Stacks.connectStacksWallet();
         return userData;
     } catch (error) {
         console.error('Error connecting wallet:', error);
@@ -12,7 +12,7 @@ async function connectWallet() {
 // Function to retrieve wallet data
 async function getWalletData() {
     try {
-        const balances = await window.Stacks.stacksWebApi.getAccountBalance();
+        const balances = await Stacks.stacksWebApi.getAccountBalance();
         return balances;
     } catch (error) {
         console.error('Error retrieving wallet data:', error);
