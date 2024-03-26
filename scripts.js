@@ -37,9 +37,11 @@ function displayWalletData(data) {
         for (const [tokenType, tokenObj] of Object.entries(data)) {
             for (const [name, tokenObj2] of Object.entries(tokenObj)) {
                 const listItem = document.createElement('li');
-                for (const [key, value] of Object.entries(tokenObj2)) {
-                    listItem.textContent = `${key}: ${value}`;
-                    list.appendChild(listItem);
+                if (typeof(tokenObj2) != 'string') {
+                    for (const [key, value] of Object.entries(tokenObj2)) {
+                        listItem.textContent = `${key}: ${value}`;
+                        list.appendChild(listItem);
+                    }
                 }
             }
         }
