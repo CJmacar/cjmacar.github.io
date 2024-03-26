@@ -3,7 +3,7 @@ async function connectWallet() {
     try {
         const addresses = await window.LeatherProvider?.request('getAddresses');
 
-        if (addresses && addresses.length > 0) {
+        if (addresses) {
             return addresses;
         } else {
             console.error('No addresses found.');
