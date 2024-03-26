@@ -34,10 +34,14 @@ function displayWalletData(data) {
     
     if (data) {
         const list = document.createElement('ul');
-        for (const coin of data) {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${coin.coin}: ${coin.amount}`;
-            list.appendChild(listItem);
+        for (const [tokenType, tokenObj] of Object.entries(data)) {
+            for (const [name, tokenObj2] of Object.entries(tokenObj)) {
+                const listItem = document.createElement('li');
+                for (const [key, value] of Object.entries(tokenObj2)) {
+                    listItem.textContent = `${key}: ${value}`;
+                    list.appendChild(listItem);
+                }
+            }
         }
         walletDataElement.appendChild(list);
     } else {
