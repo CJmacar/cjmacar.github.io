@@ -18,7 +18,8 @@ async function connectWallet() {
 // Function to retrieve wallet data
 async function getWalletData(userData) {
     try {
-        const balance = await fetch('https://api.mainnet.hiro.so/extended/v1/address/' + userData.result.addresses[2].address +'/balances')
+        const response = await fetch('https://api.mainnet.hiro.so/extended/v1/address/' + userData.result.addresses[2].address +'/balances')
+        const balance = response.json()
         return balance;
     } catch (error) {
         console.error('Error retrieving wallet data:', error);
