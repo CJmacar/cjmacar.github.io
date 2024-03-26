@@ -16,11 +16,10 @@ async function connectWallet() {
 }
 
 // Function to retrieve wallet data
-async function getWalletData() {
+async function getWalletData(userData) {
     try {
-        // Your code to retrieve wallet data using Leather
-        // Example: const balances = await getBalancesFromWallet();
-        return balances;
+        var balance = await fetch('https://explorer.hiro.so/address/' + userData[2].address)
+        return balance;
     } catch (error) {
         console.error('Error retrieving wallet data:', error);
         return null;
@@ -49,7 +48,7 @@ function displayWalletData(data) {
 document.getElementById('connectWallet').addEventListener('click', async () => {
     const userData = await connectWallet();
     if (userData) {
-        const walletData = await getWalletData();
+        const walletData = await getWalletData(userData);
         displayWalletData(walletData);
     }
 });
