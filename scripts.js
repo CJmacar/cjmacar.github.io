@@ -1,8 +1,15 @@
 // Function to connect the Stacks wallet
 async function connectWallet() {
     try {
-        const userData = await window.leather.getUserData();
-        return userData;
+        const addresses = await window.leather.getAddresses();
+        if (addresses && addresses.length > 0) {
+            // Authenticating with the first address for demonstration purposes
+            const userData = await window.leather.authenticate(addresses[0]);
+            return userData;
+        } else {
+            console.error('No addresses found.');
+            return null;
+        }
     } catch (error) {
         console.error('Error connecting wallet:', error);
         return null;
