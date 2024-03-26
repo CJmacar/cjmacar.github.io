@@ -1,7 +1,7 @@
 // Function to connect the Stacks wallet
 async function connectWallet() {
     try {
-        const userData = await window.ledger.getUserData();
+        const userData = await window.leather.getUserData();
         return userData;
     } catch (error) {
         console.error('Error connecting wallet:', error);
