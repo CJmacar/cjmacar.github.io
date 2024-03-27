@@ -73,3 +73,13 @@ main {
 .property-item {
     margin-bottom: 5px; /* Add margin bottom for spacing between property items */
 }
+
+/* Add style for clickable items */
+.clickable {
+    cursor: pointer;
+}
+
+/* Add style for hidden elements */
+.hidden {
+    display: none;
+}
