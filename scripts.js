@@ -35,17 +35,25 @@ function displayWalletData(data) {
     if (data) {
         const list = document.createElement('ul');
         for (const [tokenType, tokenObj] of Object.entries(data)) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${tokenType}`;
+            list.appendChild(listItem);
             for (const [name, tokenObj2] of Object.entries(tokenObj)) {
-                const listItem = document.createElement('li');
+                listItem.textContent = `${name}`;
+                list.appendChild(listItem);
                 if (typeof(tokenObj2) != 'string') {
                     for (const [key, value] of Object.entries(tokenObj2)) {
                         listItem.textContent = `${key}: ${value}`;
                         list.appendChild(listItem);
                     }
                 }
+                else{
+                    listItem.textContent = `$tokenObj2`;
+                    list.appendChild(listItem);
+                }
             }
+            walletDataElement.appendChild(list);
         }
-        walletDataElement.appendChild(list);
     } else {
         walletDataElement.textContent = 'Failed to retrieve wallet data.';
     }
