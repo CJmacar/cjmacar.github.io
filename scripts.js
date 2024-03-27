@@ -34,37 +34,48 @@ function displayWalletData(data) {
     
     if (data) {
         for (const [tokenType, tokenObj] of Object.entries(data)) {
-            const list = document.createElement('ul');
-            const listItem = document.createElement('li');
-            listItem.textContent = `${tokenType}`;
-            list.appendChild(listItem);
-            for (const [name, tokenObj2] of Object.entries(tokenObj)) {
-                const list = document.createElement('ul');
-                const listItem1 = document.createElement('li');
-                listItem1.textContent = `${name}`;
-                list.appendChild(listItem1);
-                if (typeof(tokenObj2) != 'string') {
-                    for (const [key, value] of Object.entries(tokenObj2)) {
-                        const list = document.createElement('ul');
-                        const listItem2 = document.createElement('li');
-                        listItem2.textContent = `${key}: ${value}`;
-                        list.appendChild(listItem2);
+            const tokenTypeList = document.createElement('ul');
+            const tokenTypeItem = document.createElement('li');
+            tokenTypeItem.textContent = `${tokenType}`;
+            tokenTypeList.appendChild(tokenTypeItem);
+            
+            if (typeof tokenObj === 'object') {
+                for (const [name, tokenObj2] of Object.entries(tokenObj)) {
+                    const nameList = document.createElement('ul');
+                    const nameItem = document.createElement('li');
+                    nameItem.textContent = `${name}`;
+                    nameList.appendChild(nameItem);
+
+                    if (typeof tokenObj2 === 'object') {
+                        for (const [key, value] of Object.entries(tokenObj2)) {
+                            const propertyList = document.createElement('ul');
+                            const propertyItem = document.createElement('li');
+                            propertyItem.textContent = `${key}: ${value}`;
+                            propertyList.appendChild(propertyItem);
+                            nameList.appendChild(propertyList);
+                        }
+                    } else {
+                        const propertyList = document.createElement('ul');
+                        const propertyItem = document.createElement('li');
+                        propertyItem.textContent = `${tokenObj2}`;
+                        propertyList.appendChild(propertyItem);
+                        nameList.appendChild(propertyList);
                     }
+                    tokenTypeList.appendChild(nameList);
                 }
-                else{
-                    const list = document.createElement('ul');
-                    const listItem2 = document.createElement('li');
-                    listItem2.textContent = `$tokenObj2`;
-                    list.appendChild(listItem2);
-                }
+            } else {
+                const tokenTypeList = document.createElement('ul');
+                const tokenTypeItem = document.createElement('li');
+                tokenTypeItem.textContent = `${tokenObj}`;
+                tokenTypeList.appendChild(tokenTypeItem);
             }
-            list.appendChild(list);
-            walletDataElement.appendChild(list);
+            walletDataElement.appendChild(tokenTypeList);
         }
     } else {
         walletDataElement.textContent = 'Failed to retrieve wallet data.';
     }
 }
+
 
 // Event listener for connecting the wallet
 document.getElementById('connectWallet').addEventListener('click', async () => {
