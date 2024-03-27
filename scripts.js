@@ -33,25 +33,32 @@ function displayWalletData(data) {
     walletDataElement.innerHTML = ''; // Clear previous data
     
     if (data) {
-        const list = document.createElement('ul');
         for (const [tokenType, tokenObj] of Object.entries(data)) {
+            const list = document.createElement('ul');
             const listItem = document.createElement('li');
             listItem.textContent = `${tokenType}`;
             list.appendChild(listItem);
             for (const [name, tokenObj2] of Object.entries(tokenObj)) {
-                listItem.textContent = `${name}`;
-                list.appendChild(listItem);
+                const list = document.createElement('ul');
+                const listItem1 = document.createElement('li');
+                listItem1.textContent = `${name}`;
+                list.appendChild(listItem1);
                 if (typeof(tokenObj2) != 'string') {
                     for (const [key, value] of Object.entries(tokenObj2)) {
-                        listItem.textContent = `${key}: ${value}`;
-                        list.appendChild(listItem);
+                        const list = document.createElement('ul');
+                        const listItem2 = document.createElement('li');
+                        listItem2.textContent = `${key}: ${value}`;
+                        list.appendChild(listItem2);
                     }
                 }
                 else{
-                    listItem.textContent = `$tokenObj2`;
-                    list.appendChild(listItem);
+                    const list = document.createElement('ul');
+                    const listItem2 = document.createElement('li');
+                    listItem2.textContent = `$tokenObj2`;
+                    list.appendChild(listItem2);
                 }
             }
+            list.appendChild(list);
             walletDataElement.appendChild(list);
         }
     } else {
