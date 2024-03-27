@@ -1,11 +1,9 @@
 // Function to connect the Stacks wallet
 async function connectWallet() {
-    try {
-        const addresses = await window.leather.getAddresses();
-        if (addresses && addresses.length > 0) {
-            // Assuming you want to use the first address for authentication
-            const userData = await window.leather.connect(addresses[0]);
-            return userData;
+    const addresses = await window.LeatherProvider?.request('getAddresses');
+try{
+    if (addresses) {
+        return addresses;
         } else {
             console.error('No addresses found.');
             return null;
