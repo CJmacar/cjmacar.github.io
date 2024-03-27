@@ -35,29 +35,41 @@ function displayWalletData(data) {
     if (data) {
         for (const [tokenType, tokenObj] of Object.entries(data)) {
             const tokenTypeList = document.createElement('ul');
+            tokenTypeList.classList.add('token-type'); // Add token-type class
+            
             const tokenTypeItem = document.createElement('li');
             tokenTypeItem.textContent = `${tokenType}`;
+            tokenTypeItem.classList.add('token-type-item'); // Add token-type-item class
             tokenTypeList.appendChild(tokenTypeItem);
             
             if (typeof tokenObj === 'object') {
                 for (const [name, tokenObj2] of Object.entries(tokenObj)) {
                     const nameList = document.createElement('ul');
+                    nameList.classList.add('name-list'); // Add name-list class
+                    
                     const nameItem = document.createElement('li');
                     nameItem.textContent = `${name}`;
+                    nameItem.classList.add('name-item'); // Add name-item class
                     nameList.appendChild(nameItem);
 
                     if (typeof tokenObj2 === 'object') {
                         for (const [key, value] of Object.entries(tokenObj2)) {
                             const propertyList = document.createElement('ul');
+                            propertyList.classList.add('property-list'); // Add property-list class
+                            
                             const propertyItem = document.createElement('li');
                             propertyItem.textContent = `${key}: ${value}`;
+                            propertyItem.classList.add('property-item'); // Add property-item class
                             propertyList.appendChild(propertyItem);
                             nameList.appendChild(propertyList);
                         }
                     } else {
                         const propertyList = document.createElement('ul');
+                        propertyList.classList.add('property-list'); // Add property-list class
+                        
                         const propertyItem = document.createElement('li');
                         propertyItem.textContent = `${tokenObj2}`;
+                        propertyItem.classList.add('property-item'); // Add property-item class
                         propertyList.appendChild(propertyItem);
                         nameList.appendChild(propertyList);
                     }
