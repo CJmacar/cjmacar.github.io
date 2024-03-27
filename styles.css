@@ -1,68 +1,75 @@
-/* Reset default browser styles */
+/* Reset default margin and padding for all elements */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-
-/* Header styles */
+/* Style for the header */
 header {
-    background-color: #007bff;
+    background-color: #333;
     color: #fff;
-    padding: 1rem;
+    padding: 10px 0;
     text-align: center;
 }
 
-header h1 {
-    font-size: 2rem;
-}
-
-/* Main styles */
+/* Style for the main content */
 main {
-    padding: 1rem;
+    padding: 20px;
 }
 
-/* Wallet section styles */
+/* Style for the wallet section */
 #wallet {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
+    margin-bottom: 20px;
 }
 
+/* Style for the connect wallet button */
 #connectWallet {
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
 }
 
-#connectWallet:hover {
-    background-color: #0056b3;
-}
-
+/* Style for wallet data */
 #walletData {
-    margin-top: 1rem;
+    margin-top: 20px;
 }
 
-/* Footer styles */
-footer {
-    background-color: #007bff;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
+/* Token type */
+.token-type {
+    list-style-type: none; /* Remove default bullet point */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+/* Token type item */
+.token-type-item {
+    margin-bottom: 10px; /* Add margin bottom for spacing between token types */
+}
+
+/* Name list */
+.name-list {
+    list-style-type: none; /* Remove default bullet point */
+    margin: 0; /* Remove default margin */
+    padding-left: 20px; /* Indent name list */
+}
+
+/* Name item */
+.name-item {
+    margin-bottom: 5px; /* Add margin bottom for spacing between name items */
+}
+
+/* Property list */
+.property-list {
+    list-style-type: none; /* Remove default bullet point */
+    margin: 0; /* Remove default margin */
+    padding-left: 20px; /* Indent property list */
+}
+
+/* Property item */
+.property-item {
+    margin-bottom: 5px; /* Add margin bottom for spacing between property items */
 }
