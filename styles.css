@@ -74,12 +74,24 @@ main {
     margin-bottom: 5px; /* Add margin bottom for spacing between property items */
 }
 
-/* Add style for clickable items */
+/* Style for clickable items */
 .clickable {
     cursor: pointer;
+    user-select: none; /* Prevent text selection on click */
+    padding-left: 20px; /* Add left padding for indentation */
 }
 
-/* Add style for hidden elements */
-.hidden {
-    display: none;
+/* Style for nested (sublist) items */
+.nested {
+    transition-property: height; /* Add smooth transition for height property */
+    transition-duration: 2sß;
+    padding-left: 40px; /* Add left padding for indentation */
+    height: 0; /* Initially set height to 0 to hide items */
+    overflow: hidden; /* Hide overflow content */
+}
+
+/* Style for visible (expanded) nested items */
+.nested:not(.hidden) {
+    height: auto; /* Set height to auto to allow expansion */
+    padding-left: 80px
 }
