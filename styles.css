@@ -9,8 +9,9 @@
 header {
     background-color: #333;
     color: #fff;
-    padding: 10px 0;
+    padding: 20px 0;
     text-align: center;
+    font-size: 24px;
 }
 
 /* Style for the main content */
@@ -28,9 +29,15 @@ main {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 15px 30px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+#connectWallet:hover {
+    background-color: #0056b3;
 }
 
 /* Style for wallet data */
@@ -40,58 +47,60 @@ main {
 
 /* Token type */
 .token-type {
-    list-style-type: none; /* Remove default bullet point */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* Token type item */
 .token-type-item {
-    margin-bottom: 10px; /* Add margin bottom for spacing between token types */
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 /* Name list */
 .name-list {
-    list-style-type: none; /* Remove default bullet point */
-    margin: 0; /* Remove default margin */
-    padding-left: 20px; /* Indent name list */
+    list-style-type: none;
+    margin: 0;
+    padding-left: 20px;
 }
 
 /* Name item */
 .name-item {
-    margin-bottom: 5px; /* Add margin bottom for spacing between name items */
+    margin-bottom: 10px;
+    font-size: 16px;
 }
 
 /* Property list */
 .property-list {
-    list-style-type: none; /* Remove default bullet point */
-    margin: 0; /* Remove default margin */
-    padding-left: 20px; /* Indent property list */
+    list-style-type: none;
+    margin: 0;
+    padding-left: 20px;
 }
 
 /* Property item */
 .property-item {
-    margin-bottom: 5px; /* Add margin bottom for spacing between property items */
+    margin-bottom: 10px;
+    font-size: 14px;
 }
 
 /* Style for clickable items */
 .clickable {
     cursor: pointer;
-    user-select: none; /* Prevent text selection on click */
-    padding-left: 20px; /* Add left padding for indentation */
+    user-select: none;
+    padding-left: 20px;
 }
 
 /* Style for nested (sublist) items */
 .nested {
-    transition-property: height; /* Add smooth transition for height property */
-    transition-duration: 2sß;
-    padding-left: 40px; /* Add left padding for indentation */
-    height: 0; /* Initially set height to 0 to hide items */
-    overflow: hidden; /* Hide overflow content */
+    transition: max-height 0.5s ease;
+    max-height: 0;
+    overflow: hidden;
 }
 
 /* Style for visible (expanded) nested items */
 .nested:not(.hidden) {
-    height: auto; /* Set height to auto to allow expansion */
-    padding-left: 80px
+    max-height: 1000px;
+    padding-left: 40px;
 }
