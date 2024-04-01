@@ -5,20 +5,50 @@ function WalletApp() {
 
     // Function to connect the wallet
     async function connectWallet() {
-        // Implement wallet connection logic here
-        // For example:
-        // const userData = await connectWalletFunction();
-        // return userData;
-        return null; // For demonstration, returning null
+        try {
+            // Ensure that LeatherProvider is available
+            if (!window.LeatherProvider) {
+                throw new Error('LeatherProvider is not available.');
+            }
+
+            // Request addresses from the wallet
+            const addresses = await window.LeatherProvider.request('getAddresses');
+            
+            if (addresses) {
+                return addresses;
+            } else {
+                console.error('No addresses found.');
+                return null;
+            }
+        } catch (error) {
+            console.error('Error connecting wallet:', error);
+            return null;
+        }
     }
 
     // Function to fetch wallet data
     async function fetchWalletData(userData) {
-        // Implement wallet data fetching logic here
-        // For example:
-        // const data = await fetchWalletDataFunction(userData);
-        // return data;
-        return null; // For demonstration, returning null
+        try {
+            // Implement wallet data fetching logic here
+            // For demonstration, returning dummy data
+            return {
+                BTC: {
+                    balance: 0.05,
+                    USD: 1500
+                },
+                ETH: {
+                    balance: 1.2,
+                    USD: 3000
+                },
+                STX: {
+                    balance: 150,
+                    USD: 180
+                }
+            };
+        } catch (error) {
+            console.error('Error fetching wallet data:', error);
+            return null;
+        }
     }
 
     // Fetch wallet data when component mounts
@@ -41,16 +71,14 @@ function WalletApp() {
 
         return (
             <ul>
-                {Object.entries(data).map(([key, value]) => (
-                    <li key={key}>
-                        {typeof value === 'object' ? (
-                            <>
-                                <strong>{key}</strong>
-                                {renderWalletData(value)}
-                            </>
-                        ) : (
-                            <span>{`${key}: ${value}`}</span>
-                        )}
+                {Object.entries(data).map(([tokenType, tokenObj]) => (
+                    <li key={tokenType}>
+                        <strong>{tokenType}</strong>
+                        <ul>
+                            {Object.entries(tokenObj).map(([key, value]) => (
+                                <li key={key}>{`${key}: ${value}`}</li>
+                            ))}
+                        </ul>
                     </li>
                 ))}
             </ul>

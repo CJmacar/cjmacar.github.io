@@ -3,27 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stacks Wallet Viewer</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Wallet App</title>
 </head>
 <body>
-    <header>
-        <h1>Stacks Wallet Viewer</h1>
-    </header>
-    <main>
-        <section id="wallet">
-            <button id="connectWallet">Connect Wallet</button>
-            <div id="walletData">
-                <!-- Wallet data will be displayed here -->
-            </div>
-        </section>
-    </main>
-    <footer>
-        <!-- Footer content -->
-    </footer>
-    <!-- Include Leather wallet library -->
-    <script src="https://cdn.jsdelivr.net/npm/leather-wallet"></script>
-    <!-- Include your script file -->
-    <script src="scripts.js"></script>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="walletApp.js" type="module"></script>
 </body>
 </html>
