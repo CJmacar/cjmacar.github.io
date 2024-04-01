@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERC-20 Token Viewer</title>
+</head>
+<body>
+    <h1>ERC-20 Token Viewer</h1>
+    <button id="connectButton">Connect to MetaMask</button>
+    <div id="tokenList"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
+    <script>
+        async function connectToMetaMask() {
+            if (window.ethereum) {
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    return true;
+                } catch (error) {
+                    console.error('Error connecting to MetaMask:', error);
+                    return false;
+                }
+            } else {
+                console.error('MetaMask extension not detected');
+                return false;
+            }
+        }
+
+        async function getTokenBalances() {
+            const web3 = new Web3(window.ethereum);
+            const accounts = await web3.eth.getAccounts();
+            const address = accounts[0];
+
+            // Fetch ERC-20 token balances
+            const tokenList = document.getElementById('tokenList');
+            tokenList.innerHTML = '';
+
+            // Fetch token balances using Etherscan API
+            const response = await fetch(`https://api.etherscan.io/api?module=account&action=tokenlist&address=${address}&tag=latest&apikey=YourApiKeyToken`);
+            const data = await response.json();
+            if (data.status === '1') {
+                const tokens = data.result;
+                for (const token of tokens) {
+                    const symbol = token.tokenSymbol;
+                    const contractAddress = token.contractAddress;
+                    const balance = token.balance / Math.pow(10, token.tokenDecimal);
+                    tokenList.innerHTML += `<p>${symbol} (${contractAddress}): ${balance}</p>`;
+                }
+            } else {
+                console.error('Failed to fetch token balances:', data.message);
+            }
+        }
+
+        document.getElementById('connectButton').addEventListener('click', async () => {
+            const connected = await connectToMetaMask();
+            if (connected) {
+                getTokenBalances();
+            }
+        });
+    </script>
+</body>
+</html>
