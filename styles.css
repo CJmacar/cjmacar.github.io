@@ -18,11 +18,13 @@ header {
 /* Style for the main content */
 main {
     padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Style for the wallet section */
 #wallet {
     margin-bottom: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Style for the connect wallet button */
@@ -45,6 +47,7 @@ main {
 /* Style for wallet data */
 #walletData {
     margin-top: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Token type */
@@ -52,6 +55,7 @@ main {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Token type item */
@@ -60,6 +64,7 @@ main {
     font-weight: bold;
     font-size: 20px;
     color: #009933; /* Vibrant green color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Name list */
@@ -67,6 +72,7 @@ main {
     list-style-type: none;
     margin: 0;
     padding-left: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Name item */
@@ -74,6 +80,7 @@ main {
     margin-bottom: 10px;
     font-size: 16px;
     color: #3333cc; /* Vibrant blue color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Property list */
@@ -81,6 +88,7 @@ main {
     list-style-type: none;
     margin: 0;
     padding-left: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Property item */
@@ -88,6 +96,7 @@ main {
     margin-bottom: 10px;
     font-size: 14px;
     color: #9900cc; /* Vibrant purple color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Style for clickable items */
@@ -95,6 +104,7 @@ main {
     cursor: pointer;
     user-select: none;
     padding-left: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Style for nested (sublist) items */
@@ -102,10 +112,12 @@ main {
     transition: max-height 0.5s ease;
     max-height: 0;
     overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Style for visible (expanded) nested items */
 .nested:not(.hidden) {
     max-height: 1000px;
     padding-left: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
