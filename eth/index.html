@@ -4,78 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ERC-721 Token Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>ERC-721 Token Viewer</h1>
-    <button id="connectButton">Connect to MetaMask</button>
-    <div id="tokenList"></div>
-    <img src="https://t3.ftcdn.net/jpg/02/82/23/94/360_F_282239447_9JUkxLmUPzBvOrEAXVEx2GpNd1EkPOSO.jpg" alt="Winner Image" id="winnerImage" style="display: none;">
+    <div class="container">
+        <h1>ERC-721 Token Viewer</h1>
+        <button id="connectButton" class="button">Connect Wallet</button>
+        <div id="winnerImage" class="hidden">
+            <img src="https://t3.ftcdn.net/jpg/02/82/23/94/360_F_282239447_9JUkxLmUPzBvOrEAXVEx2GpNd1EkPOSO.jpg" alt="Winner Image" style="max-width: 100%;">
+        </div>
+        <div id="browseNFTs" class="hidden">
+            <h2>Your NFTs</h2>
+            <!-- Placeholder for browsing NFTs -->
+        </div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
     <script>
-        async function connectToMetaMask() {
-            if (window.ethereum) {
-                try {
-                    await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    return true;
-                } catch (error) {
-                    console.error('Error connecting to MetaMask:', error);
-                    return false;
-                }
-            } else {
-                console.error('MetaMask extension not detected');
-                return false;
-            }
-        }
-
         async function checkNFTOwnership() {
-            const web3 = new Web3(window.ethereum);
-            const accounts = await web3.eth.getAccounts();
-            const address = accounts[0];
+            // Assume userNFTCount is fetched from the wallet connection
+            const userNFTCount = 7;
 
-            // Sample NFT contract address
-            const nftContractAddress = '0x1bb602b7a2ef2aecba8fe3df4b501c4c567b697d';
-            const requiredNFTCount = 7;
+            // Simulate waiting for wallet connection
+            await new Promise(resolve => setTimeout(resolve, 2000));
 
-            // Define the ABI directly (ERC721 standard)
-            const abi = [
-                {
-                    "constant": true,
-                    "inputs": [
-                        {
-                            "name": "_owner",
-                            "type": "address"
-                        }
-                    ],
-                    "name": "balanceOf",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "uint256"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                }
-            ];
-
-            const contract = new web3.eth.Contract(abi, nftContractAddress);
-            const userNFTs = await contract.methods.balanceOf(address).call();
-            if (userNFTs >= requiredNFTCount) {
-                // User is allowed entrance
-                document.getElementById('winnerImage').style.display = 'block';
+            if (userNFTCount >= 7) {
+                document.getElementById('connectButton').classList.add('hidden');
+                document.getElementById('winnerImage').classList.remove('hidden');
+                setTimeout(showBrowseNFTs, 5000);
             } else {
-                console.log('User does not have enough NFTs for entrance.');
+                alert('You do not have enough NFTs to view the winner image.');
             }
         }
 
-        document.getElementById('connectButton').addEventListener('click', async () => {
-            const connected = await connectToMetaMask();
-            if (connected) {
-                checkNFTOwnership();
-            }
-        });
+        function showBrowseNFTs() {
+            document.getElementById('winnerImage').classList.add('hidden');
+            document.getElementById('browseNFTs').classList.remove('hidden');
+            // You can populate this section with code to display and browse the user's NFTs
+        }
+
+        document.getElementById('connectButton').addEventListener('click', checkNFTOwnership);
     </script>
 </body>
 </html>
