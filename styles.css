@@ -12,6 +12,7 @@ header {
     padding: 20px 0;
     text-align: center;
     font-size: 24px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Popular sans-serif font */
 }
 
 /* Style for the main content */
@@ -26,18 +27,19 @@ main {
 
 /* Style for the connect wallet button */
 #connectWallet {
-    background-color: #007bff;
+    background-color: #ff6600; /* Vibrant orange color */
     color: #fff;
     border: none;
     padding: 15px 30px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Popular sans-serif font */
     transition: background-color 0.3s ease;
 }
 
 #connectWallet:hover {
-    background-color: #0056b3;
+    background-color: #cc5500; /* Darker shade of orange on hover */
 }
 
 /* Style for wallet data */
@@ -57,6 +59,7 @@ main {
     margin-bottom: 15px;
     font-weight: bold;
     font-size: 20px;
+    color: #009933; /* Vibrant green color */
 }
 
 /* Name list */
@@ -70,6 +73,7 @@ main {
 .name-item {
     margin-bottom: 10px;
     font-size: 16px;
+    color: #3333cc; /* Vibrant blue color */
 }
 
 /* Property list */
@@ -83,6 +87,7 @@ main {
 .property-item {
     margin-bottom: 10px;
     font-size: 14px;
+    color: #9900cc; /* Vibrant purple color */
 }
 
 /* Style for clickable items */
