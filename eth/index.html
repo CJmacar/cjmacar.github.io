@@ -6,67 +6,150 @@
     <title>ERC-721 Token Viewer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
-        .container {
-            text-align: center;
-        }
-        .button {
-            padding: 10px 20px;
-            background-color: orange;
-            color: white;
+        iframe {
             border: none;
-            border-radius: 20px;
-            font-size: 18px;
-            cursor: pointer;
+            width: 80%;
+            height: 80%;
         }
-        .hidden {
-            display: none;
+        .nft-image {
+            max-width: 200px;
+            margin: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ERC-721 Token Viewer</h1>
-        <button id="connectButton" class="button">Connect Wallet</button>
-        <div id="winnerImage" class="hidden">
-            <img src="https://t3.ftcdn.net/jpg/02/82/23/94/360_F_282239447_9JUkxLmUPzBvOrEAXVEx2GpNd1EkPOSO.jpg" alt="Winner Image" style="max-width: 100%;">
-        </div>
-        <div id="browseNFTs" class="hidden">
-            <h2>Your NFTs</h2>
-            <!-- Placeholder for browsing NFTs -->
-        </div>
-    </div>
+    <iframe srcdoc="
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                }
+                .container {
+                    text-align: center;
+                }
+                .button {
+                    padding: 10px 20px;
+                    background-color: orange;
+                    color: white;
+                    border: none;
+                    border-radius: 20px;
+                    font-size: 18px;
+                    cursor: pointer;
+                }
+                .hidden {
+                    display: none;
+                }
+                .nft-image {
+                    max-width: 200px;
+                    margin: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class=&quot;container&quot;>
+                <h1>ERC-721 Token Viewer</h1>
+                <button id=&quot;connectButton&quot; class=&quot;button&quot;>Connect Wallet</button>
+                <div id=&quot;winnerImage&quot; class=&quot;hidden&quot;>
+                    <img src=&quot;https://t3.ftcdn.net/jpg/02/82/23/94/360_F_282239447_9JUkxLmUPzBvOrEAXVEx2GpNd1EkPOSO.jpg&quot; alt=&quot;Winner Image&quot; style=&quot;max-width: 100%;&quot;>
+                </div>
+                <div id=&quot;browseNFTs&quot; class=&quot;hidden&quot;>
+                    <h2>Your NFTs</h2>
+                    <div id=&quot;nftImages&quot;></div>
+                </div>
+            </div>
 
-    <script>
-        async function checkNFTOwnership() {
-            // Assume userNFTCount is fetched from the wallet connection
-            const userNFTCount = 7;
+            <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
+            <script>
+                async function checkNFTOwnership() {
+                    if (window.ethereum) {
+                        try {
+                            await window.ethereum.request({ method: 'eth_requestAccounts' });
+                            const web3 = new Web3(window.ethereum);
+                            const accounts = await web3.eth.getAccounts();
+                            const address = accounts[0];
 
-            // Simulate waiting for wallet connection
-            await new Promise(resolve => setTimeout(resolve, 2000));
+                            // Sample NFT contract address
+                            const contractAddress = '0x1bb602b7a2ef2aecba8fe3df4b501c4c567b697d';
 
-            if (userNFTCount >= 7) {
-                document.getElementById('connectButton').classList.add('hidden');
-                document.getElementById('winnerImage').classList.remove('hidden');
-                setTimeout(showBrowseNFTs, 5000);
-            } else {
-                alert('You do not have enough NFTs to view the winner image.');
-            }
-        }
+                            // Define the ABI directly (ERC721 standard)
+                            const abi = [
+                                {
+                                    "constant": true,
+                                    "inputs": [
+                                        {
+                                            "name": "_owner",
+                                            "type": "address"
+                                        }
+                                    ],
+                                    "name": "tokensOfOwner",
+                                    "outputs": [
+                                        {
+                                            "name": "",
+                                            "type": "uint256[]"
+                                        }
+                                    ],
+                                    "payable": false,
+                                    "stateMutability": "view",
+                                    "type": "function"
+                                }
+                            ];
 
-        function showBrowseNFTs() {
-            document.getElementById('winnerImage').classList.add('hidden');
-            document.getElementById('browseNFTs').classList.remove('hidden');
-            // You can populate this section with code to display and browse the user's NFTs
-        }
+                            const contract = new web3.eth.Contract(abi, contractAddress);
+                            const userNFTIds = await contract.methods.tokensOfOwner(address).call();
 
-        document.getElementById('connectButton').addEventListener('click', checkNFTOwnership);
-    </script>
+                            if (userNFTIds.length >= 7) {
+                                document.getElementById('connectButton').classList.add('hidden');
+                                document.getElementById('winnerImage').classList.remove('hidden');
+                                setTimeout(showBrowseNFTs, 5000);
+                            } else {
+                                alert('You do not have enough NFTs to view the winner image.');
+                            }
+                        } catch (error) {
+                            console.error('Error connecting to MetaMask:', error);
+                        }
+                    } else {
+                        console.error('MetaMask extension not detected');
+                    }
+                }
+
+                async function showBrowseNFTs() {
+                    document.getElementById('winnerImage').classList.add('hidden');
+                    document.getElementById('browseNFTs').classList.remove('hidden');
+
+                    const contract = new web3.eth.Contract(abi, contractAddress);
+                    const accounts = await web3.eth.getAccounts();
+                    const address = accounts[0];
+                    const userNFTIds = await contract.methods.tokensOfOwner(address).call();
+
+                    const nftImagesContainer = document.getElementById('nftImages');
+                    nftImagesContainer.innerHTML = ''; // Clear existing images
+
+                    for (const tokenId of userNFTIds) {
+                        const imageUrl = await contract.methods.getTokenImageUrl(tokenId).call(); // Assuming this function returns the image URL for a given token ID
+                        const img = document.createElement('img');
+                        img.src = imageUrl;
+                        img.className = 'nft-image';
+                        nftImagesContainer.appendChild(img);
+                    }
+                }
+
+                document.getElementById('connectButton').addEventListener('click', checkNFTOwnership);
+            </script>
+        </body>
+        </html>">
+    </iframe>
 </body>
 </html>
