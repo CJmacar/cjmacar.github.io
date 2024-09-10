@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { WalletConnect } from './components/WalletConnect';
+import { TokenList } from './components/TokenList';
+import { TokenChart } from './components/TokenChart';
 
 function App() {
+  const [address, setAddress] = useState('');
+  const [historicalData, setHistoricalData] = useState([]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>STX Wallet Dashboard</h1>
+      <WalletConnect setAddress={setAddress} />
+      {address && (
+        <>
+          <TokenList address={address} />
+          <TokenChart historicalData={historicalData} />
+        </>
+      )}
     </div>
   );
 }
