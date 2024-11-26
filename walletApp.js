@@ -66,7 +66,7 @@ function WalletApp() {
     // Recursive function to render wallet data
     function renderWalletData(data) {
         if (!data) {
-            return <p>Failed to retrieve wallet data.</p>;
+            return (<p>Failed to retrieve wallet data.</p>);
         }
 
         return (
