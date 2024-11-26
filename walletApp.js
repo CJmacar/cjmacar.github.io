@@ -2,72 +2,60 @@ import React, { useState, useEffect } from 'react';
 
 function WalletApp() {
     const [walletData, setWalletData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Function to connect the wallet
-    async function connectWallet() {
-        try {
-            // Ensure that LeatherProvider is available
-            if (!window.LeatherProvider) {
-                throw new Error('LeatherProvider is not available.');
-            }
-
-            // Request addresses from the wallet
-            const addresses = await window.LeatherProvider.request('getAddresses');
-            
-            if (addresses) {
-                return addresses;
-            } else {
-                console.error('No addresses found.');
-                return null;
-            }
-        } catch (error) {
-            console.error('Error connecting wallet:', error);
+    // Function to connect to the wallet
+    const connectWallet = async () => {
+        if (!window.LeatherProvider) {
+            setError('LeatherProvider is not available.');
+            setLoading(false);
             return null;
         }
-    }
+
+        try {
+            const addresses = await window.LeatherProvider.request('getAddresses');
+            if (!addresses) throw new Error('No addresses found.');
+            return addresses;
+        } catch (err) {
+            setError(`Error connecting wallet: ${err.message}`);
+            setLoading(false);
+            return null;
+        }
+    };
 
     // Function to fetch wallet data
-    async function fetchWalletData(userData) {
+    const fetchWalletData = async (userData) => {
         try {
-            // Implement wallet data fetching logic here
-            // For demonstration, returning dummy data
+            // Simulated wallet data fetching logic
             return {
-                BTC: {
-                    balance: 0.05,
-                    USD: 1500
-                },
-                ETH: {
-                    balance: 1.2,
-                    USD: 3000
-                },
-                STX: {
-                    balance: 150,
-                    USD: 180
-                }
+                BTC: { balance: 0.05, USD: 1500 },
+                ETH: { balance: 1.2, USD: 3000 },
+                STX: { balance: 150, USD: 180 }
             };
-        } catch (error) {
-            console.error('Error fetching wallet data:', error);
+        } catch (err) {
+            setError(`Error fetching wallet data: ${err.message}`);
             return null;
         }
-    }
+    };
 
     // Fetch wallet data when component mounts
     useEffect(() => {
-        async function fetchData() {
+        const fetchData = async () => {
+            setLoading(true);
             const userData = await connectWallet();
             if (userData) {
                 const data = await fetchWalletData(userData);
                 setWalletData(data);
             }
-        }
+            setLoading(false);
+        };
         fetchData();
     }, []);
 
-    // Recursive function to render wallet data
-    function renderWalletData(data) {
-        if (!data) {
-            return (<p>Failed to retrieve wallet data.</p>);
-        }
+    // Recursive rendering of wallet data
+    const renderWalletData = (data) => {
+        if (!data) return <p>No data available.</p>;
 
         return (
             <ul>
@@ -83,12 +71,14 @@ function WalletApp() {
                 ))}
             </ul>
         );
-    }
+    };
 
     return (
         <div>
             <h1>Wallet Data</h1>
-            {walletData ? renderWalletData(walletData) : <p>Loading...</p>}
+            {loading && <p>Loading...</p>}
+            {error && <p className="error">{error}</p>}
+            {walletData && renderWalletData(walletData)}
         </div>
     );
 }
