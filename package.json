@@ -2,7 +2,6 @@
   "name": "wallet-app",
   "version": "1.0.0",
   "description": "A simple wallet app using React.js",
-  "main": "index.html",
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
