@@ -1,4 +1,4 @@
-name: GitHub Pages
+name: Pages Build and Deployment
 
 on:
   push:
@@ -10,30 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code with submodules
-      uses: actions/checkout@v3
-      with:
-        submodules: true  # Fetch submodules
-        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '17'
+        node-version: '14'
 
     - name: Install dependencies
       run: npm install
+      working-directory: token-burner-and-closer
 
-    - name: Build the project
+    - name: Build the app
       run: npm run build
+      working-directory: token-burner-and-closer
 
-    - name: Authenticate GitHub
-      run: |
-        git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
-    
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
-      
+        publish_dir: token-burner-and-closer/build
+        destination_dir: token-burner-and-closer
